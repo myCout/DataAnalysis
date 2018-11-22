@@ -16,8 +16,14 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
+    print('-'*40)
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-
+    print('请输入你想知道的城市名:chicage,new york city,washington')
+    city = input("请输入城市名")
+    print('请选择要筛选数据的月份:January,February,March,April,May or June:')
+    month = input("请输入月份：")
+    print('请选择周几是你想要看的，1表示Sunday')
+    day = input('请输入你选择的日期')
 
     # TO DO: get user input for month (all, january, february, ... , june)
 
@@ -29,7 +35,7 @@ def get_filters():
     return city, month, day
 
 
-def load_data(city, month, day):
+def load_data(city = 'chicago', month='January', day='4'):
     """
     Loads data for the specified city and filters by month and day if applicable.
 
@@ -40,9 +46,11 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-
-
-    return df
+    
+    data = pd.read_csv(CITY_DATA[city])
+    month_data = data()
+    print(data.head())
+    return data
 
 
 def time_stats(df):
@@ -119,18 +127,19 @@ def user_stats(df):
 
 
 def main():
-    while True:
-        city, month, day = get_filters()
-        df = load_data(city, month, day)
+    df = load_data()
+    # while True:
+        # city, month, day = get_filters()
+        # df = load_data(city, month, day)
+        
+        # time_stats(df)
+        # station_stats(df)
+        # trip_duration_stats(df)
+        # user_stats(df)
 
-        time_stats(df)
-        station_stats(df)
-        trip_duration_stats(df)
-        user_stats(df)
-
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart.lower() != 'yes':
-            break
+        # restart = input('\nWould you like to restart? Enter yes or no.\n')
+        # if restart.lower() != 'yes':
+        #     break
 
 
 if __name__ == "__main__":
