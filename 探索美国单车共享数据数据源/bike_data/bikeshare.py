@@ -48,8 +48,44 @@ def load_data(city = 'chicago', month='January', day='4'):
     """
     
     data = pd.read_csv(CITY_DATA[city])
-    month_data = data()
-    print(data.head())
+    
+    data['Start Time'] = pd.to_datetime(data['Start Time'])
+    # print(data['Start Time'].head())
+    # 将date设置为index
+    # df = data.set_index('Start Time')
+    data['month'] = data['Start Time'].dt.month
+    data['day_of_week'] = data['Start Time'].dt.weekday_name
+    # print('*'*80)
+    # print(data.head())
+    # 获取某年的数据
+    # print('*'*20)
+    # print(df['2017'].head())
+    # 获取某月的数据
+    # print('*'*20)
+    # print(df['2017-01'].head())
+
+    if month != 'all' :
+        # use the index of the months list to get the corresponding int
+        months = ['January', 'February', 'March', 'April', 'May', 'June']
+        month = months.index(month) + 1
+
+        # filter by month to create the new dataframe
+        data = data[data['month'] == month]
+        # print('*'*80)
+        # print(data.head())
+
+    if day != 'all' : 
+        weeks = {'1':'Monday',
+                 '2':'Tuesday',
+                 '3':'Wednesday',
+                 '4':'Thursday',
+                 '5':'Friday',
+                 '6':'Saturday',
+                 '7':'Sunday',}
+        data = data[data['day_of_week'] == weeks[day]]
+        print('*'*80)
+        print(data.head())
+
     return data
 
 
@@ -127,19 +163,19 @@ def user_stats(df):
 
 
 def main():
-    df = load_data()
-    # while True:
-        # city, month, day = get_filters()
-        # df = load_data(city, month, day)
+    # df = load_data()
+    while True:
+        city, month, day = get_filters()
+        df = load_data(city, month, day)
         
-        # time_stats(df)
-        # station_stats(df)
-        # trip_duration_stats(df)
-        # user_stats(df)
+        time_stats(df)
+        station_stats(df)
+        trip_duration_stats(df)
+        user_stats(df)
 
-        # restart = input('\nWould you like to restart? Enter yes or no.\n')
-        # if restart.lower() != 'yes':
-        #     break
+        restart = input('\nWould you like to restart? Enter yes or no.\n')
+        if restart.lower() != 'yes':
+            break
 
 
 if __name__ == "__main__":
