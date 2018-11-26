@@ -54,6 +54,8 @@ def load_data(city = 'chicago', month='January', day='4'):
     # df = data.set_index('Start Time')
     data['month'] = data['Start Time'].dt.month
     data['day_of_week'] = data['Start Time'].dt.weekday_name
+    data['hour'] = data['Start Time'].dt.hour
+
     # print('*'*80)
     # print(data.head())
     # 获取某年的数据
@@ -89,7 +91,7 @@ def load_data(city = 'chicago', month='January', day='4'):
     print(data.head())
     return data
 
-
+#众数
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
@@ -97,12 +99,17 @@ def time_stats(df):
     start_time = time.time()
 
     # TO DO: display the most common month
-    print(df['month'].model()[0])
+    print('-'*40)
+    print('the most common month is :', df['month'].mode()['index'])
 
     # TO DO: display the most common day of week
+    print('-'*40)
+    print('the most common day of week is :',df['day_of_week'].mode()[0])
 
 
     # TO DO: display the most common start hour
+    print('-'*40)
+    print('the most common start hour is :' ,df['hour'].mode()[0])
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -116,13 +123,16 @@ def station_stats(df):
     start_time = time.time()
 
     # TO DO: display most commonly used start station
-
+    print('-'*40)
+    print('the most commonly used start station is :',df['Start Station'].mode()[0])
 
     # TO DO: display most commonly used end station
-
+    print('-'*40)
+    print('the most commonly used End station is :',df['End Station'].mode()[0])
 
     # TO DO: display most frequent combination of start station and end station trip
-
+    print('-'*40)
+    print('the most frequent combination of start station and end station trip is :',df['Trip Duration'].mode()[0])
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -170,7 +180,7 @@ def main():
         df = load_data(city, month, day)
         
         time_stats(df)
-        # station_stats(df)
+        station_stats(df)
         # trip_duration_stats(df)
         # user_stats(df)
 
