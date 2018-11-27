@@ -99,21 +99,21 @@ def time_stats(df):
     start_time = time.time()
 
     # TO DO: display the most common month
-    print('-'*40)
-    print('the most common month is :', df['month'].mode()['index'])
+    print('1-'*40)
+    print('the most common month is :', df['month'].mode()[0])
 
     # TO DO: display the most common day of week
-    print('-'*40)
+    print('2-'*40)
     print('the most common day of week is :',df['day_of_week'].mode()[0])
 
 
     # TO DO: display the most common start hour
-    print('-'*40)
+    print('3-'*40)
     print('the most common start hour is :' ,df['hour'].mode()[0])
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('4-'*40)
 
 
 def station_stats(df):
@@ -123,19 +123,19 @@ def station_stats(df):
     start_time = time.time()
 
     # TO DO: display most commonly used start station
-    print('-'*40)
+    print('5-'*40)
     print('the most commonly used start station is :',df['Start Station'].mode()[0])
 
     # TO DO: display most commonly used end station
-    print('-'*40)
+    print('6-'*40)
     print('the most commonly used End station is :',df['End Station'].mode()[0])
 
     # TO DO: display most frequent combination of start station and end station trip
-    print('-'*40)
+    print('7-'*40)
     print('the most frequent combination of start station and end station trip is :',df['Trip Duration'].mode()[0])
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print('8-'*40)
 
 
 def trip_duration_stats(df):
@@ -145,10 +145,12 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # TO DO: display total travel time
-
+    print('-'*40)
+    print('the total travel time is :',df['Trip Duration'].sum())
 
     # TO DO: display mean travel time
-
+    print('-'*40)
+    print('the mean travel time is :',df['Trip Duration'].mean(axis=0))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -161,10 +163,13 @@ def user_stats(df):
     start_time = time.time()
 
     # TO DO: Display counts of user types
+    print('-'*40)
+    print('counts of user types is :',df['User Type'].count())
 
 
     # TO DO: Display counts of gender
-
+    print('-'*40)
+    print('counts of Gender is :',df['Gender'].count())
 
     # TO DO: Display earliest, most recent, and most common year of birth
 
@@ -181,8 +186,8 @@ def main():
         
         time_stats(df)
         station_stats(df)
-        # trip_duration_stats(df)
-        # user_stats(df)
+        trip_duration_stats(df)
+        user_stats(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
